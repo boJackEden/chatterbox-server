@@ -16,6 +16,13 @@ module.exports = {
       this._ended = true;
       this._data = data;
     }.bind(this);
+
+    Object.defineProperty(this, 'statusCode', {
+      set: function(value) {
+        console.log('jkdlsjldkj');
+        this._responseCode = value;
+      }
+    });
   },
 
   request: function(url, method, postdata) {
@@ -37,3 +44,5 @@ module.exports = {
   }
 
 };
+
+
