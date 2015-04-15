@@ -37,24 +37,25 @@ module.exports.requestHandler = function(request, response) {
   //handles requests made for classes/messages
   if(request.method === "OPTIONS") {
     //figure out how to send static files.
+
       response.writeHead(200, headers);
       response.end();
   } else if (new RegExp(/\/classes\/.+/).test(request.url) && request.method === "GET"){
       console.log("received classes/messages request");
       responseData = {};
       responseData.results = serverData;
-      response.statusCode = 200;
+      response.writeHead(200, headers);
       response.end(JSON.stringify(responseData));
   } else if(request.method === "POST") {
       console.log("received POST request")
       request.on("data", function(data){
         serverData.push(JSON.parse(data));
       });
-      response.statusCode = 201;
+      response.writeHead(201, headers);
       response.end();
   } else {
       console.log("Falling back to 404 response- this may be bad!")
-      response.statusCode = 404;
+      response.writeHead(404, headers);
       response.end("you done fucked up!");
   }
 
@@ -80,5 +81,5 @@ var defaultCorsHeaders = {
   "access-control-max-age": 10 // Seconds.
 };
 
-var serverData = [];
+var serverData = [{text: "Hello World!", username: "Kyle and Eden", roomname: "Main"}];
 

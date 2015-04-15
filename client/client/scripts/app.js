@@ -61,8 +61,7 @@ $(function() {
         type: 'GET',
         contentType: 'application/json',
         success: function(data) {
-          console.log('chatterbox: Messages fetched');
-
+          data = JSON.parse(data);
           // Don't bother if we have nothing to work with
           if (!data.results || !data.results.length) { return; }
 
@@ -139,6 +138,7 @@ $(function() {
       app.$roomSelect.append($option);
     },
     addMessage: function(data) {
+      console.log(data);
       if (!data.roomname)
         data.roomname = 'lobby';
 
